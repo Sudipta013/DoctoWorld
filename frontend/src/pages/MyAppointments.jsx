@@ -204,7 +204,7 @@ const MyAppointments = () => {
             </div>
             <div></div>
             <div className="flex flex-col gap-2 justify-end">
-              {!item.cancelled && !item.payment && paymentAppointmentId !== item._id && !paymentSuccess[item._id] ? (
+              {!item.cancelled && !item.payment && paymentAppointmentId !== item._id && !paymentSuccess[item._id] && !item.isCompleted ? (
                 <button
                   onClick={() => setPaymentAppointmentId(item._id)}
                   className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-blue-600 hover:text-white transition-all duration-300"
@@ -220,7 +220,7 @@ const MyAppointments = () => {
                 )
               )}
               
-              {!item.cancelled && paymentAppointmentId === item._id && (
+              {!item.cancelled && paymentAppointmentId === item._id && !item.isCompleted && (
                 <div>
                     <CardElement className="border rounded p-2 mb-2" />
                   <button
@@ -237,7 +237,9 @@ const MyAppointments = () => {
                   </button>
                 </div>
               )}
-              {!item.cancelled && (
+
+
+              {!item.cancelled && !item.isCompleted && (
                 <button
                   onClick={() => cancelAppointment(item._id)}
                   className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300"
@@ -250,6 +252,13 @@ const MyAppointments = () => {
                   Appointment Cancelled
                 </button>
               )}
+              {
+                item.isCompleted && (
+                  <button className="sm:min-w-48 py-2 border rounded text-green-600">
+                    Appointment Completed
+                  </button>
+                )
+              }
             </div>
           </div>
         ))}

@@ -8,15 +8,15 @@ import { assets } from '../../assets/assets';
 const AllAppointments = () => {
 
 
-  const {aToken, appointments, getAllAppointments,cancelAppointment} = useContext(AdminContext);
-  const {calcAge,slotDateFormat,currency} = useContext(AppContext);
+  const { aToken, appointments, getAllAppointments, cancelAppointment } = useContext(AdminContext);
+  const { calcAge, slotDateFormat, currency } = useContext(AppContext);
 
 
   useEffect(() => {
-    if(aToken){
+    if (aToken) {
       getAllAppointments();
     }
-  },[aToken])
+  }, [aToken])
 
   // api call to get appointment
   return (
@@ -33,10 +33,10 @@ const AllAppointments = () => {
           <p>Action</p>
         </div>
         {
-          appointments.map((item,index)=>{
+          appointments.map((item, index) => {
             return (
               <div className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center py-3 px-6 border-b hover:bg-gray-50' key={index}>
-                <p className='max-sm:hidden'>{index+1}</p>
+                <p className='max-sm:hidden'>{index + 1}</p>
                 <div className='flex items-center gap-2'>
                   <img className='w-8 rounded-full' src={item.userData.image} alt="" />
                   <p>{item.userData.name}</p>
@@ -44,14 +44,16 @@ const AllAppointments = () => {
                 <p className='max-sm:hidden'>{calcAge(item.userData.dob)}</p>
                 <p>{slotDateFormat(item.slotDate)},{item.slotTime}</p>
                 <div className='flex items-center gap-2'>
-                  <img className='w-8 rounded-full bg-gray-200' src={item.doctData.image} alt=""/>
+                  <img className='w-8 rounded-full bg-gray-200' src={item.doctData.image} alt="" />
                   <p>{item.doctData.name}</p>
                 </div>
                 <p>{currency}{item.amount}</p>
-                  {item.cancelled 
+                {item.cancelled
                   ? <p className='text-red-400 text-xs font-medium'>Cancelled</p>
-                  : <p><img onClick={()=>cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" /></p>
-                  }
+                  : item.isCompleted
+                    ? <p className='text-green-400 text-xs font-medium'>Completed</p> 
+                    : <p><img onClick={() => cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" /></p>
+                }
               </div>
             )
           })
