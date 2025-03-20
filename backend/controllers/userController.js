@@ -1,7 +1,7 @@
 // api logic for user like login,register,get & update profile, bookappointment, display and cancel appointment and payment gateway
 
 import validator from "validator";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import {v2 as cloudinary} from "cloudinary"
@@ -30,7 +30,7 @@ const registerUser = async (req, res) => {
         }
 
         // hashing user password
-        const salt = await bcrypt.genSalt(10);
+        const salt = 10;
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // create a new user

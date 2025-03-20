@@ -1,5 +1,5 @@
 import validator from "validator";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import {v2 as cloudinary} from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
 import jwt from "jsonwebtoken";
@@ -51,8 +51,8 @@ const addDoctor = async (req, res) => {
         }
 
         //encrypt and save the data to the database
-        //hashing password 
-        const salt = await bcrypt.genSalt(10); //5-15 
+        //hashing password  
+        const salt = 10; //5-15 
         const hashedPassword = await bcrypt.hash(password, salt);
 
         //upload img to cloudinary
