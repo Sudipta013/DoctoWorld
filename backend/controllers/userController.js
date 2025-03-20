@@ -16,17 +16,17 @@ const registerUser = async (req, res) => {
         const {name,email,password} = req.body;
 
         if(!name || !email || !password){
-            return res.status(400).json({success:false,message:"Please fill all the fields"})
+            return res.json({success:false,message:"Please fill all the fields"})
         }
 
         // validate email
         if(!validator.isEmail(email)){
-            return res.status(400).json({success:false,message:"Please enter a valid email"})
+            return res.json({success:false,message:"Please enter a valid email"})
         }
 
         // validate password
         if(password.length < 8){
-            return res.status(400).json({success:false,message:"Password must be at least 8 characters"})
+            return res.json({success:false,message:"Password must be at least 8 characters"})
         }
 
         // hashing user password
@@ -66,7 +66,7 @@ const loginUser = async (req, res) => {
         const user = await userModel.findOne({email});
 
         if(!user){
-            return res.status(400).json({success:false,message:"User not found"});
+            return res.json({success:false,message:"User not found"});
         }
 
         // if user exist match password
