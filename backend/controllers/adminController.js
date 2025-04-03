@@ -24,18 +24,6 @@ const addDoctor = async (req, res) => {
 
         const imageFile = req.file;
 
-        // console.log({
-        //     name,
-        //     email,
-        //     password, 
-        //     speciality,
-        //     degree, 
-        //     experience, 
-        //     about, 
-        //     fees,
-        //     address
-        // },imageFile);
-
         if(!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address){
             return res.status(400).json({success: false, message: "Please fill all the fields"});
         }
